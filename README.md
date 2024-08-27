@@ -185,7 +185,7 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
   }
   ```
 
-#### Skenario 2: Ketika mengunjungi localhost:9000 dan response-nya bukan HTML, kriteria `response-in-html` harus terpenuhi
+#### Skenario 2: Ketika mengunjungi localhost:9000 dan response-nya HTML, kriteria `response-in-html` harus terpenuhi
 
 - Status: `backlog`
 
