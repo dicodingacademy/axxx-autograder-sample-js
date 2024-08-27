@@ -197,7 +197,7 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
   }
   ```
 
-### Kriteria: The HTML file must contain an h1 element with the sender's username.
+### Kriteria: The HTML file must contain an h1 element with the student's username.
 
 #### Skenario 1: Ketika HTML response bukan elemen h1, submission harus ditolak
 
