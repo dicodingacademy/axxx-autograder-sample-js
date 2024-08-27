@@ -66,7 +66,7 @@ flowchart LR
 > _Tandai x setiap kali checklist telah selesai._
 
 - [x] Mendefinisikan Acceptance Scenarios (AS)
-- [ ] Mendefinisikan Flowchart (alur dalam menilai submission)
+- [x] Mendefinisikan Flowchart (alur dalam menilai submission)
 - [ ] Pengembangan
     - [ ] Memastikan kontrak autograder
     - [ ] Teruji (AS terpenuhi)
