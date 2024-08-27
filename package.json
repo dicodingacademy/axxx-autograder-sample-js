@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/yargs": "^17.0.33",
     "eslint": "^9.9.1",
     "eslint-config-dicodingacademy": "^0.9.4",
     "globals": "^15.9.0",
@@ -19,5 +20,8 @@
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.3.0",
     "vitest": "^2.0.5"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
   }
 }
