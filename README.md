@@ -139,7 +139,7 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 ### Kriteria: The port must be set to 5000.
 
-#### Skenario 1: Ketika berkas main.js diesekusi dan port 9000 tidak terbuka, submission harus ditolak
+#### Skenario 1: Ketika berkas main.js dieksekusi dan port 9000 tidak terbuka, submission harus ditolak
 
 - Status: `backlog`
 
