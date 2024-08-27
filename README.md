@@ -104,7 +104,7 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
   }
   ```
 
-### Kriteria: The main.js file must contain a comment with the sender's username
+### Kriteria: The main.js file must contain a comment with the student's username
 
 #### Skenario 1: Ketika berkas main.js tidak memiliki komentar username pengirim, submission harus ditolak
 
