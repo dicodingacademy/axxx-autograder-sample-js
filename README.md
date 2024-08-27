@@ -27,7 +27,7 @@
 
 > _Tandai x setiapkali checklist telah selesai._
 
-- [ ] Mendefinisikan Acceptance Scenarios (AS)
+- [x] Mendefinisikan Acceptance Scenarios (AS)
 - [ ] Mendefinisikan Flowchart (alur dalam menilai submission)
 - [ ] Pengembangan
     - [ ] Memastikan kontrak autograder
