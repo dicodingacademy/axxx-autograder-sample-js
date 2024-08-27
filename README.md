@@ -88,7 +88,7 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
   ```json
   {
     "is_passed": false,
-    "message": "<p>kami tidak bisa menemukan file <strong>main.json</strong> pada submission yang kamu kirimkan. Periksa kembali submissionmu pastikan sesuai dengan kriteria yang ada.</p>"
+    "message": "<p>kami tidak bisa menemukan file <strong>main.js</strong> pada submission yang kamu kirimkan. Periksa kembali submissionmu pastikan sesuai dengan kriteria yang ada.</p>"
   }
   ```
 
