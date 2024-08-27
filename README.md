@@ -21,14 +21,52 @@
 
 ## Flowchart (alur dalam menilai submission)
 
-*TODO: Jelaskan alur autograder menilai submission. Dibuat dengan format mermaid chart.*
+```mermaid
+flowchart LR
+    A[Start grading] --> |paralel| B[Check `contain-package-json`]
+    A --> |paralel| C[Check `contain-main-js`]
+    
+    B --> B_Result{Lolos?}
+    C --> C_Result{Lolos?}
+    
+    B_Result -- Tidak --> Reject[/Submission ditolak/]
+    C_Result -- Tidak --> Reject
+    
+    B_Result -- Ya --> B1[/Memasang dependencies/]
+    C_Result -- Ya --> C1[Check `main-js-contain-username`]
+    
+    C1 --> C1_Result{Lolos?}
+    C1_Result -- Tidak --> Reject
+    C1_Result -- Ya --> C2[/Menjalankan berkas main.js/]
+    
+    B1 --> |await| C2
+    
+    C2 --> C3[Check `use-correct-port`]
+    C3 --> C3_Result{Lolos?}
+    
+    C3_Result -- Tidak --> Reject
+    C3_Result -- Ya --> C4_Parallel{Paralel check}
+    
+    C4_Parallel --> |paralel| C4[Check `response-in-html`]
+    C4_Parallel --> |paralel| C5[Check `response-h1-with-correct-username`]
+    
+    C4 --> C45_Result{Lolos?}
+    C5 --> C45_Result
+    
+    C45_Result -- Tidak --> Reject
+    C45_Result -- Ya --> Accept[/Submission diterima/]
+	
+	
+```
+
+
 
 ## Roadmap checklist
 
 > _Tandai x setiap kali checklist telah selesai._
 
 - [x] Mendefinisikan Acceptance Scenarios (AS)
-- [ ] Mendefinisikan Flowchart (alur dalam menilai submission)
+- [x] Mendefinisikan Flowchart (alur dalam menilai submission)
 - [ ] Pengembangan
     - [ ] Memastikan kontrak autograder
     - [ ] Teruji (AS terpenuhi)
