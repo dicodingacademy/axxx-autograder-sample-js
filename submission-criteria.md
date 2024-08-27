@@ -4,4 +4,4 @@
 - The main.js file must contain a comment with the sender's username.
 - The port must be set to 9000.
 - The root of the main.js application must display HTML.
-- The HTML file must contain an h1 element with the sender's username.
+- The HTML file must contain an h1 element with the student's username.
