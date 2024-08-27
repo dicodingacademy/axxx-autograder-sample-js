@@ -40,8 +40,6 @@
 
 ## Acceptance Scenarios
 
-*TODO: Jelaskan berbagai skenario yang ditangani oleh autograder dalam menilai submission.*
-
 Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autograder.
 
 ### Kriteria: Contains package.json
