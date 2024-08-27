@@ -25,7 +25,7 @@
 
 ## Roadmap checklist
 
-> _Tandai x setiapkali checklist telah selesai._
+> _Tandai x setiap kali checklist telah selesai._
 
 - [x] Mendefinisikan Acceptance Scenarios (AS)
 - [ ] Mendefinisikan Flowchart (alur dalam menilai submission)
