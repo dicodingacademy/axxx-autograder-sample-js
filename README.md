@@ -154,7 +154,7 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
   }
   ```
 
-#### Skenario 2: Ketika berkas main.js diesekusi dan port 9000 terbuka, kriteria `use-correct-port` harus terpenuhi
+#### Skenario 2: Ketika berkas main.js dieksekusi dan port 9000 terbuka, kriteria `use-correct-port` harus terpenuhi
 
 - Status: `backlog`
 
