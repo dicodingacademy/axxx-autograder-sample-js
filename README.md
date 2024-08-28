@@ -13,26 +13,42 @@
 
 ## Setup Autograder
 
-*TODO: Jelaskan cara setup proyek autograder (misal, install dependencies, dsb)*
+- Pastikan komputer Anda sudah terpasang Node.js.
+- Clone repository ini.
+- Pasang dependencies yang dibutuhkan dengan perintah: npm ci.
+- Jalankan pengujian dengan npm test dan pastikan seluruh pengujian lolos.
 
 ## Cara Menjalankan Autograder
 
-*TODO: Jelaskan cara menjalankan autograder termasuk flag-flag yang disediakan.*
+Jalankan auto-grader dengan menggunakan command npm run start -- [argument]
+
+### Argument
+
+```shell
+Options:
+      --help     Show help                                             [boolean]
+      --version  Show version number                                   [boolean]
+  -p, --path     Define student submission location                   [required]
+```
 
 ## Flowchart (alur dalam menilai submission)
 
 ```mermaid
 flowchart LR
     A[Start grading] --> |paralel| B[Check `contain-package-json`]
-    A --> |paralel| C[Check `contain-main-js`]
-    
+
     B --> B_Result{Lolos?}
+    
+    B_Result -- Ya --> B_Parallel{Paralel check}
+    
+    B_Parallel -- paralel --> C[Check `contain-main-js`]
+    
     C --> C_Result{Lolos?}
     
     B_Result -- Tidak --> Reject[/Submission ditolak/]
     C_Result -- Tidak --> Reject
     
-    B_Result -- Ya --> B1[/Memasang dependencies/]
+    B_Parallel -- paralel --> B1[/Memasang dependencies/]
     C_Result -- Ya --> C1[Check `main-js-contain-username`]
     
     C1 --> C1_Result{Lolos?}
@@ -84,9 +100,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 1: Ketika submission siswa tidak memiliki berkas `package.json`, submission harus ditolak
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -99,9 +115,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
   
 ### Skenario 2: Ketika submission memiliki berkas `package.json`, kriteria `contain-package-json` harus terpenuhi
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 

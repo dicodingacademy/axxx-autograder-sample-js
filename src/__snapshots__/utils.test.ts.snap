@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`utils > getSubmissionInfo > should return \`SubmissionInfo\` correctly 1`] = `
+{
+  "courseId": 610,
+  "id": 667273,
+  "quizId": 32712,
+  "rejectedCount": 2,
+  "submitterBirthday": "2020-01-01 00:00:00",
+  "submitterName": "Dimas Saputra",
+  "submitterUsername": "dimassaputra",
+}
+`;
+
+exports[`utils > writeReportJson > should write report.json correctly 1`] = `"{"submission_id":123,"message":"<p>Selamat! Submission Anda diterima</p>","checklist_keys":["checklist-a","checklist-b"],"is_passed":true,"rating":5,"is_draft":false}"`;

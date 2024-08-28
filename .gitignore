@@ -1,2 +1,5 @@
 .idea
-# add more git ignroe here!
+node_modules
+fixtures/**/**/report.json
+coverage
+# add more git ignore here!

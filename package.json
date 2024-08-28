@@ -1,0 +1,29 @@
+{
+  "name": "axxx-autograder-sample",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Autograder untuk kelas Belajar Membuat Aplikasi Fiktif",
+  "main": "src/app.ts",
+  "scripts": {
+    "start": "tsx src/app.ts",
+    "test": "vitest --run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "@types/yargs": "^17.0.33",
+    "@vitest/coverage-v8": "^2.0.5",
+    "eslint": "^9.9.1",
+    "eslint-config-dicodingacademy": "^0.9.4",
+    "globals": "^15.9.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.3.0",
+    "vitest": "^2.0.5"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
+}
