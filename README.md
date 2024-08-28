@@ -13,11 +13,23 @@
 
 ## Setup Autograder
 
-*TODO: Jelaskan cara setup proyek autograder (misal, install dependencies, dsb)*
+- Pastikan komputer Anda sudah terpasang Node.js.
+- Clone repository ini.
+- Pasang dependencies yang dibutuhkan dengan perintah: npm ci.
+- Jalankan pengujian dengan npm test dan pastikan seluruh pengujian lolos.
 
 ## Cara Menjalankan Autograder
 
-*TODO: Jelaskan cara menjalankan autograder termasuk flag-flag yang disediakan.*
+Jalankan auto-grader dengan menggunakan command npm run start -- [argument]
+
+### Argument
+
+```shell
+Options:
+      --help     Show help                                             [boolean]
+      --version  Show version number                                   [boolean]
+  -p, --path     Define student submission location                   [required]
+```
 
 ## Flowchart (alur dalam menilai submission)
 
