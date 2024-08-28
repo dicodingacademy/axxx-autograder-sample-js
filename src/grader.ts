@@ -1,5 +1,5 @@
 import { checkContainPackageJson } from './criterias/contain-package-json';
-import { findFolderBaseOnFile, getSubmissionInfo } from './utils';
+import { findFolderBaseOnFile, getSubmissionInfo, installDependencies } from './utils';
 import { buildReport } from './report';
 import { checkContainMainJs } from './criterias/contain-main-js';
 import { mainJsContainUsernameCheck } from './criterias/main-js-contain-username';
@@ -26,7 +26,11 @@ export async function grade(submissionPath: string) {
     return buildReport([containPackageJsonChecklist, containMainJSChecklist], submissionInfo, projectPath);
   }
 
-  const mainJsContainUsernameChecklist = await mainJsContainUsernameCheck(projectPath, submissionInfo);
+  // checking username in main.js parallel with install dependencies
+  const [mainJsContainUsernameChecklist] = await Promise.all([
+    mainJsContainUsernameCheck(projectPath, submissionInfo),
+    installDependencies(projectPath)
+  ]);
 
   return buildReport(
     [containPackageJsonChecklist, containMainJSChecklist, mainJsContainUsernameChecklist],
