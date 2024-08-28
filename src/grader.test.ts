@@ -41,4 +41,31 @@ describe('grader', () => {
       expect(report.checklist_keys).toContain('contain-package-json');
     });
   });
+
+  describe('contain-main-js checklist', () => {
+    it('should reject submission when student submission not contain `main.js`', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('not-contain-main-js');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(false);
+      expect(report.message).toContain('<p>kami tidak bisa menemukan file <strong>main.js</strong> pada submission yang kamu kirimkan. Periksa kembali submissionmu pastikan sesuai dengan kriteria yang ada.</p>');
+    });
+
+    it('should `contain-main-js` in `checklist_keys` when submission contain `main.js`', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('contain-main-js');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.checklist_keys).toContain('contain-main-js');
+    });
+  });
 });

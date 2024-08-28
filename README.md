@@ -131,9 +131,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 1: Ketika submission siswa tidak memiliki berkas `main.js`, submission harus ditolak
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -146,9 +146,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 2: Ketika submission siswa memiliki berkas `main.js`, kriteria `contain-main-js` harus terpenuhi
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
