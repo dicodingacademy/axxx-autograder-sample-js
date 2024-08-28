@@ -88,9 +88,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 1: Ketika submission siswa tidak memiliki berkas `package.json`, submission harus ditolak
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -103,9 +103,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
   
 ### Skenario 2: Ketika submission memiliki berkas `package.json`, kriteria `contain-package-json` harus terpenuhi
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
