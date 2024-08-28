@@ -1,4 +1,4 @@
-import { SubmissionInfo } from './types';
+import { Report, SubmissionInfo } from './types';
 import * as fs from 'node:fs/promises';
 import { join } from 'node:path';
 
@@ -16,4 +16,19 @@ export async function getSubmissionInfo(path: string): Promise<SubmissionInfo>{
     courseId: json.course_id,
     rejectedCount: json.rejected_count,
   };
+}
+
+export async function writeReportJson(report: Report, submissionPath: string): Promise<void> {
+  const payload = {
+    submission_id: report.submissionId,
+    message: report.message,
+    checklist_keys: report.checklistKeys,
+    is_passed: report.isPassed,
+    rating: report.rating,
+    is_draft: false,
+  };
+
+  const reportPath = join(submissionPath, 'report.json');
+
+  await fs.writeFile(reportPath, JSON.stringify(payload), 'utf8');
 }

@@ -11,3 +11,5 @@ exports[`utils > getSubmissionInfo > should return \`SubmissionInfo\` correctly 
   "submitterUsername": "dimassaputra",
 }
 `;
+
+exports[`utils > writeReportJson > should write report.json correctly 1`] = `"{"submission_id":123,"message":"<p>Selamat! Submission Anda diterima</p>","checklist_keys":["checklist-a","checklist-b"],"is_passed":true,"rating":5,"is_draft":false}"`;
