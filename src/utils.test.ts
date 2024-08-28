@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { join } from 'node:path';
-import { getSubmissionInfo, writeReportJson } from './utils';
+import { findFolderBaseOnFile, getSubmissionInfo, writeReportJson } from './utils';
 import * as fs from 'node:fs/promises';
 import { Report } from './types';
 
@@ -45,6 +45,30 @@ describe('utils', () => {
       // Assert
       const reportJson = await readReportJson(path);
       expect(reportJson).toMatchSnapshot();
+    });
+  });
+
+  describe('findFolderBaseOnFile', async () => {
+    it('should return null when looked up file is not found', async () => {
+      // Arrange
+      const projectPath = getSubmissionFixturePath('not-contain-package-json');
+
+      // Action
+      const result = await findFolderBaseOnFile(projectPath, 'package.json');
+
+      // Assert
+      expect(result).toEqual(null);
+    });
+
+    it('should return folder path when looked up file and is found', async () => {
+      // Arrange
+      const projectPath = getSubmissionFixturePath('contain-package-json-nested');
+
+      // Action
+      const result = await findFolderBaseOnFile(projectPath, 'package.json');
+
+      // Assert
+      expect(result).toContain(join('contain-package-json-nested', 'project'));
     });
   });
 });

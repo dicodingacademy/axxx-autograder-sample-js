@@ -1,6 +1,7 @@
 import { Report, SubmissionInfo } from './types';
 import * as fs from 'node:fs/promises';
 import { join } from 'node:path';
+import { readdir } from 'node:fs/promises';
 
 export async function getSubmissionInfo(path: string): Promise<SubmissionInfo>{
   const submissionInfoFilePath = join(path, 'auto-review-config.json');
@@ -31,4 +32,17 @@ export async function writeReportJson(report: Report, submissionPath: string): P
   const reportPath = join(submissionPath, 'report.json');
 
   await fs.writeFile(reportPath, JSON.stringify(payload), 'utf8');
+}
+
+export async function findFolderBaseOnFile(folder: string, filename: string): Promise<string> {
+  const files = await readdir(folder);
+  const filteredFiles = files.filter((f) => f !== 'node_modules');
+
+  if (filteredFiles.includes(filename)) {
+    return folder;
+  }
+
+  return Promise.any(
+    filteredFiles.map((fileOrDir) => findFolderBaseOnFile(join(folder, fileOrDir), filename))
+  ).catch(() => Promise.resolve(null));
 }
