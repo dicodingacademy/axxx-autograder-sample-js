@@ -24,15 +24,19 @@
 ```mermaid
 flowchart LR
     A[Start grading] --> |paralel| B[Check `contain-package-json`]
-    A --> |paralel| C[Check `contain-main-js`]
-    
+
     B --> B_Result{Lolos?}
+    
+    B_Result -- Ya --> B_Parallel{Paralel check}
+    
+    B_Parallel -- paralel --> C[Check `contain-main-js`]
+    
     C --> C_Result{Lolos?}
     
     B_Result -- Tidak --> Reject[/Submission ditolak/]
     C_Result -- Tidak --> Reject
     
-    B_Result -- Ya --> B1[/Memasang dependencies/]
+    B_Parallel -- paralel --> B1[/Memasang dependencies/]
     C_Result -- Ya --> C1[Check `main-js-contain-username`]
     
     C1 --> C1_Result{Lolos?}
