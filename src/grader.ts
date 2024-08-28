@@ -2,6 +2,7 @@ import { checkContainPackageJson } from './criterias/contain-package-json';
 import { findFolderBaseOnFile, getSubmissionInfo } from './utils';
 import { buildReport } from './report';
 import { checkContainMainJs } from './criterias/contain-main-js';
+import { mainJsContainUsernameCheck } from './criterias/main-js-contain-username';
 
 export async function grade(submissionPath: string) {
   const submissionInfo = await getSubmissionInfo(submissionPath);
@@ -20,8 +21,15 @@ export async function grade(submissionPath: string) {
   // check contain main.js checklist
   const containMainJSChecklist = await checkContainMainJs(projectPath);
 
+  // if the main.js not contain in project, we can't any further do
+  if (!containMainJSChecklist.completed) {
+    return buildReport([containPackageJsonChecklist, containMainJSChecklist], submissionInfo, projectPath);
+  }
+
+  const mainJsContainUsernameChecklist = await mainJsContainUsernameCheck(projectPath, submissionInfo);
+
   return buildReport(
-    [containPackageJsonChecklist, containMainJSChecklist],
+    [containPackageJsonChecklist, containMainJSChecklist, mainJsContainUsernameChecklist],
     submissionInfo,
     submissionPath
   );

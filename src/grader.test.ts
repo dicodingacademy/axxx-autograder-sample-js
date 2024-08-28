@@ -68,4 +68,31 @@ describe('grader', () => {
       expect(report.checklist_keys).toContain('contain-main-js');
     });
   });
+
+  describe('main-js-contain-username checklist', () => {
+    it('should reject submission when main.js is not contain comment that hold correct student username', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('main-js-wrong-username');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(false);
+      expect(report.message).toContain('<p>Pastikan kamu menuliskan username akun Dicoding dalam bentuk komentar di berkas <code>main.js</code></p>');
+    });
+
+    it('should `main-js-contain-username` in `checklist_keys` when submission contain `main.js`', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('main-js-correct-username');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.checklist_keys).toContain('main-js-contain-username');
+    });
+  });
 });
