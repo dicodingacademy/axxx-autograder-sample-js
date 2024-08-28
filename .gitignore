@@ -1,4 +1,4 @@
 .idea
 node_modules
 fixtures/**/**/report.json
-# add more git ignroe here!
+# add more git ignore here!
