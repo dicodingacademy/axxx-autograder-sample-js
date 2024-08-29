@@ -6,6 +6,7 @@ import { mainJsContainUsernameCheck } from './criterias/main-js-contain-username
 import { useCorrectPortCheck } from './criterias/use-correct-port';
 import { join } from 'node:path';
 import { ChildProcess } from 'node:child_process';
+import { responseInHtmlCheck } from './criterias/response-in-html';
 
 function killProcess(pros: ChildProcess) {
   pros.kill('SIGKILL');
@@ -57,9 +58,12 @@ export async function grade(submissionPath: string) {
     );
   }
 
+  // check response should html
+  const responseInHTMLChecklist = await responseInHtmlCheck();
+
   killProcess(serverProcess);
   return buildReport(
-    [containPackageJsonChecklist, containMainJSChecklist, mainJsContainUsernameChecklist, useCorrectPortChecklist],
+    [containPackageJsonChecklist, containMainJSChecklist, mainJsContainUsernameChecklist, useCorrectPortChecklist, responseInHTMLChecklist],
     submissionInfo,
     submissionPath
   );

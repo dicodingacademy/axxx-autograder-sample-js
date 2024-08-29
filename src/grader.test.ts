@@ -126,4 +126,31 @@ describe('grader', () => {
       expect(report.checklist_keys).toContain('use-correct-port');
     });
   });
+
+  describe('use-correct-port checklist', () => {
+    it('should reject submission when app is not response in html', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('not-response-html');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(false);
+      expect(report.message).toContain('<p>Aplikasi web yang kamu buat harus me-response dengan format HTML.</p>');
+    });
+
+    it('should contain `response-in-html` in `checklist_keys` when app response with html', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('response-html');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.checklist_keys).toContain('response-in-html');
+    });
+  });
 });
