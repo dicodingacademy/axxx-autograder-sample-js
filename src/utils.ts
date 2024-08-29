@@ -1,5 +1,6 @@
 import { Report, SubmissionInfo } from './types';
 import * as fs from 'node:fs/promises';
+import { spawn } from 'node:child_process';
 import { join } from 'node:path';
 import { readdir } from 'node:fs/promises';
 import { $, which } from 'zx';
@@ -51,4 +52,8 @@ export async function findFolderBaseOnFile(folder: string, filename: string): Pr
 export async function installDependencies(projectPath: string): Promise<void> {
   const npmPath = await which('npm');
   await $({ cwd: projectPath })`${npmPath} install`;
+}
+
+export function asyncNodeSpawn(filepath: string) {
+  return spawn(process.execPath, [filepath], { stdio: 'ignore' });
 }

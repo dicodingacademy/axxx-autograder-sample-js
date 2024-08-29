@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { join } from 'node:path';
-import { findFolderBaseOnFile, getSubmissionInfo, installDependencies, writeReportJson } from './utils';
+import { asyncNodeSpawn, findFolderBaseOnFile, getSubmissionInfo, installDependencies, writeReportJson } from './utils';
 import * as fs from 'node:fs/promises';
 import { Report } from './types';
 import { access, rm } from 'node:fs/promises';
+import { ChildProcess } from 'node:child_process';
 
 function getSubmissionFixturePath(...folders: string[]) {
   return join(process.cwd(), 'fixtures', 'submissions', ...folders);
@@ -101,6 +102,27 @@ describe('utils', () => {
       const packageLockJson = join(submissionPath, 'package-lock.json');
       await rm(nodeModulesFolder, { recursive: true });
       await rm(packageLockJson);
+    });
+  });
+
+  describe('asyncNodeExecute', () => {
+    async function wait(timeout: number) {
+      return new Promise((resolve) => setTimeout(resolve, timeout));
+    }
+
+    it('should return `ChildProcess` when execute', async () => {
+      // Arrange
+      const filepath = join(process.cwd(), 'fixtures', 'others', 'server.cjs');
+
+      // Action
+      const childProcess = asyncNodeSpawn(filepath);
+
+      // Assert
+      expect(childProcess instanceof ChildProcess).toEqual(true);
+
+      // Clean-up
+      await wait(3000);
+      childProcess.kill('SIGKILL');
     });
   });
 });
