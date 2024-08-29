@@ -1,8 +1,15 @@
 import { checkContainPackageJson } from './criterias/contain-package-json';
-import { findFolderBaseOnFile, getSubmissionInfo, installDependencies } from './utils';
+import { asyncNodeSpawn, findFolderBaseOnFile, getSubmissionInfo, installDependencies } from './utils';
 import { buildReport } from './report';
 import { checkContainMainJs } from './criterias/contain-main-js';
 import { mainJsContainUsernameCheck } from './criterias/main-js-contain-username';
+import { useCorrectPortCheck } from './criterias/use-correct-port';
+import { join } from 'node:path';
+import { ChildProcess } from 'node:child_process';
+
+function killProcess(pros: ChildProcess) {
+  pros.kill('SIGKILL');
+}
 
 export async function grade(submissionPath: string) {
   const submissionInfo = await getSubmissionInfo(submissionPath);
@@ -32,8 +39,27 @@ export async function grade(submissionPath: string) {
     installDependencies(projectPath)
   ]);
 
+  // run the server
+  const mainJsFolder = await findFolderBaseOnFile(projectPath, 'main.js');
+  const mainJsPath = join(mainJsFolder, 'main.js');
+  const serverProcess = asyncNodeSpawn(mainJsPath);
+
+  // check the port
+  const useCorrectPortChecklist = await useCorrectPortCheck();
+
+  // if port not opened, then we can't any further do
+  if (!useCorrectPortChecklist.completed) {
+    killProcess(serverProcess);
+    return buildReport(
+      [containPackageJsonChecklist, containMainJSChecklist, mainJsContainUsernameChecklist, useCorrectPortChecklist],
+      submissionInfo,
+      projectPath
+    );
+  }
+
+  killProcess(serverProcess);
   return buildReport(
-    [containPackageJsonChecklist, containMainJSChecklist, mainJsContainUsernameChecklist],
+    [containPackageJsonChecklist, containMainJSChecklist, mainJsContainUsernameChecklist, useCorrectPortChecklist],
     submissionInfo,
     submissionPath
   );
