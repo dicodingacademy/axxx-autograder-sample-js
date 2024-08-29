@@ -1,7 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { join } from 'node:path';
 import * as fs from 'node:fs/promises';
 import { grade } from './grader';
+
+vi.setConfig({
+  testTimeout: 60_000,
+});
 
 function getSubmissionFixturePath(...folders: string[]) {
   return join(process.cwd(), 'fixtures', 'submissions', ...folders);
@@ -93,6 +97,33 @@ describe('grader', () => {
       // Assert
       const report = await readReportJson(submissionPath);
       expect(report.checklist_keys).toContain('main-js-contain-username');
+    });
+  });
+
+  describe('use-correct-port checklist', () => {
+    it('should reject submission when main.js executed but no 9000 port opened', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('wrong-port');
+
+      // Action
+      await grade(submissionPath);
+
+      // Action
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(false);
+      expect(report.message).toContain('<p>Pastikan PORT 9000 digunakan oleh aplikasi webmu ketika kami menjalankan berkas <code>main.js</code>.</p>');
+    });
+
+    it('should contain `use-correct-port` in `checklist_keys` when main.js executed and 9000 port opened', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('correct-port');
+
+      // Action
+      await grade(submissionPath);
+
+      // Action
+      const report = await readReportJson(submissionPath);
+      expect(report.checklist_keys).toContain('use-correct-port');
     });
   });
 });
