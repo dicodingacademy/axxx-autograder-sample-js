@@ -253,26 +253,11 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 ### Kriteria: The HTML file must contain an h1 element with the student's username.
 
-#### Skenario 1: Ketika HTML response bukan elemen h1, submission harus ditolak
+#### Skenario 1: Ketika HTML response bukan username siswa, submission harus ditolak
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
-
-- Expected output:
-
-  ```json
-  {
-    "is_passed": false,
-    "message": "<p>Respone HTML harus berupa element h1.</p>"
-  }
-  ```
-
-#### Skenario 2: Ketika HTML response elemen h1, tetapi kontennya bukan username siswa, submission harus ditolak
-
-- Status: `backlog`
-
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -285,9 +270,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 3: Ketika response element h1 dan kontennya username siswa, kriteria `response-h1-with-correct-username` harus terpenuhi
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
