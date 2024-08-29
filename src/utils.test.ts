@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { join } from 'node:path';
-import { findFolderBaseOnFile, getSubmissionInfo, writeReportJson } from './utils';
+import { findFolderBaseOnFile, getSubmissionInfo, installDependencies, writeReportJson } from './utils';
 import * as fs from 'node:fs/promises';
 import { Report } from './types';
+import { access, rm } from 'node:fs/promises';
 
 function getSubmissionFixturePath(...folders: string[]) {
   return join(process.cwd(), 'fixtures', 'submissions', ...folders);
@@ -11,6 +12,17 @@ function getSubmissionFixturePath(...folders: string[]) {
 function readReportJson(submissionPath: string) {
   const reportPath = join(submissionPath, 'report.json');
   return fs.readFile(reportPath, 'utf8');
+}
+
+async function isContainDirectory(base: string, name: string) {
+  const path = join(base, name);
+
+  try {
+    await access(path);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 describe('utils', () => {
@@ -48,7 +60,7 @@ describe('utils', () => {
     });
   });
 
-  describe('findFolderBaseOnFile', async () => {
+  describe('findFolderBaseOnFile', () => {
     it('should return null when looked up file is not found', async () => {
       // Arrange
       const projectPath = getSubmissionFixturePath('not-contain-package-json');
@@ -69,6 +81,26 @@ describe('utils', () => {
 
       // Assert
       expect(result).toContain(join('contain-package-json-nested', 'project'));
+    });
+  });
+
+  describe('installDependencies', () => {
+    it('should install dependencies correctly', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('contain-package-json');
+
+      // Action
+      await installDependencies(submissionPath);
+
+      // Assert
+      const isExist = await isContainDirectory(submissionPath, 'node_modules');
+      expect(isExist).toEqual(true);
+
+      // Clean-up
+      const nodeModulesFolder = join(submissionPath, 'node_modules');
+      const packageLockJson = join(submissionPath, 'package-lock.json');
+      await rm(nodeModulesFolder, { recursive: true });
+      await rm(packageLockJson);
     });
   });
 });

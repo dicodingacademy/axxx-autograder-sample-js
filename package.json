@@ -24,6 +24,8 @@
     "vitest": "^2.0.5"
   },
   "dependencies": {
-    "yargs": "^17.7.2"
+    "esprima-extract-comments": "^1.1.0",
+    "yargs": "^17.7.2",
+    "zx": "^8.1.4"
   }
 }

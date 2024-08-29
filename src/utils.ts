@@ -2,6 +2,7 @@ import { Report, SubmissionInfo } from './types';
 import * as fs from 'node:fs/promises';
 import { join } from 'node:path';
 import { readdir } from 'node:fs/promises';
+import { $, which } from 'zx';
 
 export async function getSubmissionInfo(path: string): Promise<SubmissionInfo>{
   const submissionInfoFilePath = join(path, 'auto-review-config.json');
@@ -45,4 +46,9 @@ export async function findFolderBaseOnFile(folder: string, filename: string): Pr
   return Promise.any(
     filteredFiles.map((fileOrDir) => findFolderBaseOnFile(join(folder, fileOrDir), filename))
   ).catch(() => Promise.resolve(null));
+}
+
+export async function installDependencies(projectPath: string): Promise<void> {
+  const npmPath = await which('npm');
+  await $({ cwd: projectPath })`${npmPath} install`;
 }
