@@ -193,9 +193,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 1: Ketika berkas main.js dieksekusi dan port 9000 tidak terbuka, submission harus ditolak
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -208,9 +208,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 2: Ketika berkas main.js dieksekusi dan port 9000 terbuka, kriteria `use-correct-port` harus terpenuhi
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
