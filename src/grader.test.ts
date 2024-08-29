@@ -1,7 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { join } from 'node:path';
 import * as fs from 'node:fs/promises';
 import { grade } from './grader';
+import { logger } from './logging';
+
+vi.mock('./logging.ts');
 
 vi.setConfig({
   testTimeout: 60_000,
@@ -18,6 +21,11 @@ async function readReportJson(submissionPath: string) {
 }
 
 describe.sequential('grader', () => {
+  beforeEach(() => {
+    logger.setPrefix = vi.fn();
+    logger.info = vi.fn();
+  });
+
   describe('contain-package-json checklist', () => {
     it('should reject submission when student submission not contain `package.json`', async () => {
       // Arrange

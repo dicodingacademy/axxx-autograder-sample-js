@@ -4,6 +4,7 @@ import { spawn } from 'node:child_process';
 import { join } from 'node:path';
 import { readdir } from 'node:fs/promises';
 import { $, which } from 'zx';
+import { logger } from './logging';
 
 export async function getSubmissionInfo(path: string): Promise<SubmissionInfo>{
   const submissionInfoFilePath = join(path, 'auto-review-config.json');
@@ -34,6 +35,7 @@ export async function writeReportJson(report: Report, submissionPath: string): P
   const reportPath = join(submissionPath, 'report.json');
 
   await fs.writeFile(reportPath, JSON.stringify(payload), 'utf8');
+  logger.info('(reporting) report.json is written');
 }
 
 export async function findFolderBaseOnFile(folder: string, filename: string): Promise<string> {

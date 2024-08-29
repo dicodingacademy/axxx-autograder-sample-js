@@ -83,10 +83,10 @@ flowchart LR
 
 - [x] Mendefinisikan Acceptance Scenarios (AS)
 - [x] Mendefinisikan Flowchart (alur dalam menilai submission)
-- [ ] Pengembangan
+- [x] Pengembangan
     - [x] Memastikan kontrak autograder
     - [x] Teruji (AS terpenuhi)
-    - [ ] Integrasi Logging
+    - [x] Logging
 - [x] Melengkapi Dokumentasi
 - [ ] Integrasi dengan Platform Dicoding
     - [ ] Teruji secara staging
@@ -357,4 +357,30 @@ All files                              |     100 |      100 |     100 |     100 
   use-correct-port.ts                  |     100 |      100 |     100 |     100 |                   
 ---------------------------------------|---------|----------|---------|---------|-------------------
 
+```
+
+### Example Logging Result
+```text
+[2024-08-29 16:30:44.961 +0700] INFO: [667273] grading process start
+[2024-08-29 16:30:44.961 +0700] INFO: [667273] (progress) "contain-package-json" criteria check
+[2024-08-29 16:30:44.961 +0700] INFO: [667273] (done) "contain-package-json" criteria check: PASSED
+[2024-08-29 16:30:44.962 +0700] INFO: [667273] the project path: /home/dimas/auto-graders/axxx-autograder-sample/fixtures/submissions/approve-submission
+[2024-08-29 16:30:44.962 +0700] INFO: [667273] (progress) "contain-main-js" criteria check
+[2024-08-29 16:30:44.962 +0700] INFO: [667273] (done) "contain-main-js" criteria check: PASSED
+[2024-08-29 16:30:44.962 +0700] INFO: [667273] (progress) "main-js-contain-username" criteria check
+[2024-08-29 16:30:44.962 +0700] INFO: [667273] (progress) installing dependencies app
+[2024-08-29 16:30:44.963 +0700] INFO: [667273] (done) "main-js-contain-username" criteria check: PASSED
+[2024-08-29 16:30:45.845 +0700] INFO: [667273] (done) installing dependencies app
+[2024-08-29 16:30:45.845 +0700] INFO: [667273] (progress) executing main.js using node
+[2024-08-29 16:30:45.846 +0700] INFO: [667273] (done) executing main.js using node
+[2024-08-29 16:30:45.846 +0700] INFO: [667273] (progress) "use-correct-port" criteria check
+[2024-08-29 16:30:46.080 +0700] INFO: [667273] (done) "use-correct-port" criteria check: PASSED
+[2024-08-29 16:30:46.080 +0700] INFO: [667273] (progress) "response-in-html" criteria check
+[2024-08-29 16:30:46.080 +0700] INFO: [667273] (progress) "response-h1-with-correct-username" criteria check
+[2024-08-29 16:30:46.097 +0700] INFO: [667273] (done) "response-in-html" criteria check: PASSED
+[2024-08-29 16:30:46.100 +0700] INFO: [667273] (done) "response-h1-with-correct-username" criteria check: PASSED
+[2024-08-29 16:30:46.101 +0700] INFO: [667273] (done) application server stopped
+[2024-08-29 16:30:46.101 +0700] INFO: [667273] (reporting) submission will be approve
+[2024-08-29 16:30:46.102 +0700] INFO: [667273] (reporting) report.json is written
+[2024-08-29 16:30:46.102 +0700] INFO: [667273] submission has successfully graded in 1.32 seconds
 ```
