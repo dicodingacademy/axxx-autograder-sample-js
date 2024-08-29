@@ -7,6 +7,7 @@ import { useCorrectPortCheck } from './criterias/use-correct-port';
 import { join } from 'node:path';
 import { ChildProcess } from 'node:child_process';
 import { responseInHtmlCheck } from './criterias/response-in-html';
+import { responseH1WithCorrectUsernameCheck } from './criterias/response-h1-with-correct-username';
 
 function killProcess(pros: ChildProcess) {
   pros.kill('SIGKILL');
@@ -58,12 +59,14 @@ export async function grade(submissionPath: string) {
     );
   }
 
-  // check response should html
-  const responseInHTMLChecklist = await responseInHtmlCheck();
+  // check response should html parallel with check body response
+  const [responseInHTMLChecklist, responseH1withCorrectUsernameCheck] = await Promise.all(
+    [responseInHtmlCheck(), responseH1WithCorrectUsernameCheck(submissionInfo)]
+  );
 
   killProcess(serverProcess);
   return buildReport(
-    [containPackageJsonChecklist, containMainJSChecklist, mainJsContainUsernameChecklist, useCorrectPortChecklist, responseInHTMLChecklist],
+    [containPackageJsonChecklist, containMainJSChecklist, mainJsContainUsernameChecklist, useCorrectPortChecklist, responseInHTMLChecklist, responseH1withCorrectUsernameCheck],
     submissionInfo,
     submissionPath
   );

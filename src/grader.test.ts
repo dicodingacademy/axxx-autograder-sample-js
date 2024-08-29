@@ -17,8 +17,7 @@ async function readReportJson(submissionPath: string) {
   return JSON.parse(text);
 }
 
-
-describe('grader', () => {
+describe.sequential('grader', () => {
   describe('contain-package-json checklist', () => {
     it('should reject submission when student submission not contain `package.json`', async () => {
       // Arrange
@@ -151,6 +150,33 @@ describe('grader', () => {
       // Assert
       const report = await readReportJson(submissionPath);
       expect(report.checklist_keys).toContain('response-in-html');
+    });
+  });
+
+  describe('response-h1-with-correct-username checklist', () => {
+    it('should reject submission when app is not h1 with correct username', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('response-not-correct-username');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(false);
+      expect(report.message).toContain('<p>Konten yang berada di dalam elemen h1 harus username akun Dicodingmu.</p>');
+    });
+
+    it('should contain `response-h1-with-correct-username` in `checklist_keys` when app response h1 with correct username', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('response-correct-username');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.checklist_keys).toContain('response-h1-with-correct-username');
     });
   });
 });
