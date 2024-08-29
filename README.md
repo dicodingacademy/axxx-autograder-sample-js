@@ -285,9 +285,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 ### Scenario: Rejection and Approval Scenario
 
 #### Skenario 1: Ketika kriteria yang terpenuhi tidak lengkap, submission harus ditolak
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -299,9 +299,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
   ```
 
 #### Skenario 2: Ketika kriteria yang terpenuhi lengkap, submission harus diterima
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 

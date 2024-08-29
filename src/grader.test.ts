@@ -179,4 +179,30 @@ describe.sequential('grader', () => {
       expect(report.checklist_keys).toContain('response-h1-with-correct-username');
     });
   });
+
+  describe('Rejection and Approval scenario', () => {
+    it('should reject submission when checklist not complete', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('reject-submission');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(false);
+    });
+
+    it('should approve submission when checklist complete', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('approve-submission');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(true);
+    });
+  });
 });
