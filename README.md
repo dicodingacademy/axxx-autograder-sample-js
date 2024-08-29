@@ -84,10 +84,10 @@ flowchart LR
 - [x] Mendefinisikan Acceptance Scenarios (AS)
 - [x] Mendefinisikan Flowchart (alur dalam menilai submission)
 - [ ] Pengembangan
-    - [ ] Memastikan kontrak autograder
-    - [ ] Teruji (AS terpenuhi)
+    - [x] Memastikan kontrak autograder
+    - [x] Teruji (AS terpenuhi)
     - [ ] Integrasi Logging
-- [ ] Melengkapi Dokumentasi
+- [x] Melengkapi Dokumentasi
 - [ ] Integrasi dengan Platform Dicoding
     - [ ] Teruji secara staging
     - [ ] Dijalankan secara production
@@ -316,4 +316,45 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 ## Appendix
 
-*TODO: Jelaskan informasi lain yang diperlukan di sini, seperti daftar dependencies, hasil riset, dan lain sebagainya.*
+### Package dependencies
+- `esprima-extract-comments`: extract the comment to evaluate student's username
+- `zx`: for better child process creation
+- `yargs`: for better cli argument getter
+
+### Test Coverage
+```text
+> axxx-autograder-sample@1.0.0 test
+> vitest --run --coverage --no-file-parallelism
+
+
+ RUN  v2.0.5 /home/dimas/auto-graders/axxx-autograder-sample
+      Coverage enabled with v8
+
+ ✓ src/grader.test.ts (14) 32984ms
+ ✓ src/report.test.ts (2)
+ ✓ src/utils.test.ts (6) 3657ms
+
+ Test Files  3 passed (3)
+      Tests  22 passed (22)
+   Start at  14:52:46
+   Duration  37.02s (transform 84ms, setup 0ms, collect 140ms, tests 36.65s, environment 0ms, prepare 55ms)
+
+ % Coverage report from v8
+---------------------------------------|---------|----------|---------|---------|-------------------
+File                                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+---------------------------------------|---------|----------|---------|---------|-------------------
+All files                              |     100 |      100 |     100 |     100 |                   
+ src                                   |     100 |      100 |     100 |     100 |                   
+  grader.ts                            |     100 |      100 |     100 |     100 |                   
+  report.ts                            |     100 |      100 |     100 |     100 |                   
+  utils.ts                             |     100 |      100 |     100 |     100 |                   
+ src/criterias                         |     100 |      100 |     100 |     100 |                   
+  contain-main-js.ts                   |     100 |      100 |     100 |     100 |                   
+  contain-package-json.ts              |     100 |      100 |     100 |     100 |                   
+  main-js-contain-username.ts          |     100 |      100 |     100 |     100 |                   
+  response-h1-with-correct-username.ts |     100 |      100 |     100 |     100 |                   
+  response-in-html.ts                  |     100 |      100 |     100 |     100 |                   
+  use-correct-port.ts                  |     100 |      100 |     100 |     100 |                   
+---------------------------------------|---------|----------|---------|---------|-------------------
+
+```
