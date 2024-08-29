@@ -224,9 +224,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 1: Ketika mengunjungi localhost:9000 tetapi response-nya bukan HTML, submission harus ditolak
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -239,9 +239,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 2: Ketika mengunjungi localhost:9000 dan response-nya HTML, kriteria `response-in-html` harus terpenuhi
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
