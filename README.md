@@ -31,12 +31,6 @@ Options:
   -p, --path     Define student submission location                   [required]
 ```
 
-### Docker version
-```shell
-docker build -t autograder:sample 
-docker run --rm --mount type=bind,source=$(SUBMISSION_FOLDER_PATH),target=/home/direviu/app/student-submission autograder:sample npm start -- -p=/home/direviu/app/student-submission
-```
-
 ## Flowchart (alur dalam menilai submission)
 
 ```mermaid
