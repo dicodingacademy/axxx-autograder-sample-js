@@ -83,11 +83,11 @@ flowchart LR
 
 - [x] Mendefinisikan Acceptance Scenarios (AS)
 - [x] Mendefinisikan Flowchart (alur dalam menilai submission)
-- [ ] Pengembangan
-    - [ ] Memastikan kontrak autograder
-    - [ ] Teruji (AS terpenuhi)
-    - [ ] Integrasi Logging
-- [ ] Melengkapi Dokumentasi
+- [x] Pengembangan
+    - [x] Memastikan kontrak autograder
+    - [x] Teruji (AS terpenuhi)
+    - [x] Logging
+- [x] Melengkapi Dokumentasi
 - [ ] Integrasi dengan Platform Dicoding
     - [ ] Teruji secara staging
     - [ ] Dijalankan secara production
@@ -189,13 +189,13 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
   }
   ```
 
-### Kriteria: The port must be set to 5000.
+### Kriteria: The port must be set to 9000.
 
 #### Skenario 1: Ketika berkas main.js dieksekusi dan port 9000 tidak terbuka, submission harus ditolak
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -208,9 +208,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 2: Ketika berkas main.js dieksekusi dan port 9000 terbuka, kriteria `use-correct-port` harus terpenuhi
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -224,9 +224,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 1: Ketika mengunjungi localhost:9000 tetapi response-nya bukan HTML, submission harus ditolak
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -239,9 +239,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 2: Ketika mengunjungi localhost:9000 dan response-nya HTML, kriteria `response-in-html` harus terpenuhi
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -253,26 +253,11 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 ### Kriteria: The HTML file must contain an h1 element with the student's username.
 
-#### Skenario 1: Ketika HTML response bukan elemen h1, submission harus ditolak
+#### Skenario 1: Ketika HTML response bukan username siswa, submission harus ditolak
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
-
-- Expected output:
-
-  ```json
-  {
-    "is_passed": false,
-    "message": "<p>Respone HTML harus berupa element h1.</p>"
-  }
-  ```
-
-#### Skenario 2: Ketika HTML response elemen h1, tetapi kontennya bukan username siswa, submission harus ditolak
-
-- Status: `backlog`
-
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -285,9 +270,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 #### Skenario 3: Ketika response element h1 dan kontennya username siswa, kriteria `response-h1-with-correct-username` harus terpenuhi
 
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -300,9 +285,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 ### Scenario: Rejection and Approval Scenario
 
 #### Skenario 1: Ketika kriteria yang terpenuhi tidak lengkap, submission harus ditolak
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -314,9 +299,9 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
   ```
 
 #### Skenario 2: Ketika kriteria yang terpenuhi lengkap, submission harus diterima
-- Status: `backlog`
+- Status: `done`
 
-- Test coverage: 🔴
+- Test coverage: 🟢
 
 - Expected output:
 
@@ -331,4 +316,71 @@ Berikut beberapa skenario (baik negatif dan positif) yang ditangani oleh autogra
 
 ## Appendix
 
-*TODO: Jelaskan informasi lain yang diperlukan di sini, seperti daftar dependencies, hasil riset, dan lain sebagainya.*
+### Package dependencies
+- `esprima-extract-comments`: extract the comment to evaluate student's username
+- `zx`: for better child process creation
+- `yargs`: for better cli argument getter
+
+### Test Coverage
+```text
+> axxx-autograder-sample@1.0.0 test
+> vitest --run --coverage --no-file-parallelism
+
+
+ RUN  v2.0.5 /home/dimas/auto-graders/axxx-autograder-sample
+      Coverage enabled with v8
+
+ ✓ src/grader.test.ts (14) 32984ms
+ ✓ src/report.test.ts (2)
+ ✓ src/utils.test.ts (6) 3657ms
+
+ Test Files  3 passed (3)
+      Tests  22 passed (22)
+   Start at  14:52:46
+   Duration  37.02s (transform 84ms, setup 0ms, collect 140ms, tests 36.65s, environment 0ms, prepare 55ms)
+
+ % Coverage report from v8
+---------------------------------------|---------|----------|---------|---------|-------------------
+File                                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+---------------------------------------|---------|----------|---------|---------|-------------------
+All files                              |     100 |      100 |     100 |     100 |                   
+ src                                   |     100 |      100 |     100 |     100 |                   
+  grader.ts                            |     100 |      100 |     100 |     100 |                   
+  report.ts                            |     100 |      100 |     100 |     100 |                   
+  utils.ts                             |     100 |      100 |     100 |     100 |                   
+ src/criterias                         |     100 |      100 |     100 |     100 |                   
+  contain-main-js.ts                   |     100 |      100 |     100 |     100 |                   
+  contain-package-json.ts              |     100 |      100 |     100 |     100 |                   
+  main-js-contain-username.ts          |     100 |      100 |     100 |     100 |                   
+  response-h1-with-correct-username.ts |     100 |      100 |     100 |     100 |                   
+  response-in-html.ts                  |     100 |      100 |     100 |     100 |                   
+  use-correct-port.ts                  |     100 |      100 |     100 |     100 |                   
+---------------------------------------|---------|----------|---------|---------|-------------------
+
+```
+
+### Example Logging Result
+```text
+[2024-08-29 16:30:44.961 +0700] INFO: [667273] grading process start
+[2024-08-29 16:30:44.961 +0700] INFO: [667273] (progress) "contain-package-json" criteria check
+[2024-08-29 16:30:44.961 +0700] INFO: [667273] (done) "contain-package-json" criteria check: PASSED
+[2024-08-29 16:30:44.962 +0700] INFO: [667273] the project path: /home/dimas/auto-graders/axxx-autograder-sample/fixtures/submissions/approve-submission
+[2024-08-29 16:30:44.962 +0700] INFO: [667273] (progress) "contain-main-js" criteria check
+[2024-08-29 16:30:44.962 +0700] INFO: [667273] (done) "contain-main-js" criteria check: PASSED
+[2024-08-29 16:30:44.962 +0700] INFO: [667273] (progress) "main-js-contain-username" criteria check
+[2024-08-29 16:30:44.962 +0700] INFO: [667273] (progress) installing dependencies app
+[2024-08-29 16:30:44.963 +0700] INFO: [667273] (done) "main-js-contain-username" criteria check: PASSED
+[2024-08-29 16:30:45.845 +0700] INFO: [667273] (done) installing dependencies app
+[2024-08-29 16:30:45.845 +0700] INFO: [667273] (progress) executing main.js using node
+[2024-08-29 16:30:45.846 +0700] INFO: [667273] (done) executing main.js using node
+[2024-08-29 16:30:45.846 +0700] INFO: [667273] (progress) "use-correct-port" criteria check
+[2024-08-29 16:30:46.080 +0700] INFO: [667273] (done) "use-correct-port" criteria check: PASSED
+[2024-08-29 16:30:46.080 +0700] INFO: [667273] (progress) "response-in-html" criteria check
+[2024-08-29 16:30:46.080 +0700] INFO: [667273] (progress) "response-h1-with-correct-username" criteria check
+[2024-08-29 16:30:46.097 +0700] INFO: [667273] (done) "response-in-html" criteria check: PASSED
+[2024-08-29 16:30:46.100 +0700] INFO: [667273] (done) "response-h1-with-correct-username" criteria check: PASSED
+[2024-08-29 16:30:46.101 +0700] INFO: [667273] (done) application server stopped
+[2024-08-29 16:30:46.101 +0700] INFO: [667273] (reporting) submission will be approve
+[2024-08-29 16:30:46.102 +0700] INFO: [667273] (reporting) report.json is written
+[2024-08-29 16:30:46.102 +0700] INFO: [667273] submission has successfully graded in 1.32 seconds
+```

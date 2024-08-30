@@ -1,5 +1,6 @@
 import { Checklist, Report, SubmissionInfo } from './types';
 import { writeReportJson } from './utils';
+import { logger } from './logging';
 
 const TOTAL_CHECKLIST = 6;
 
@@ -56,8 +57,10 @@ export function buildReport(checklists: Checklist[], submissionInfo: SubmissionI
   const completedChecklist = checklists.filter((checklist) => checklist.completed);
 
   if (completedChecklist.length === TOTAL_CHECKLIST) {
+    logger.info('(reporting) submission will be approve');
     return buildApprovedReport(checklists, submissionInfo, submissionPath);
   }
 
+  logger.info('(reporting) submission will be reject');
   return buildRejectionReport(checklists, submissionInfo, submissionPath);
 }

@@ -1,7 +1,14 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { join } from 'node:path';
 import * as fs from 'node:fs/promises';
 import { grade } from './grader';
+import { logger } from './logging';
+
+vi.mock('./logging.ts');
+
+vi.setConfig({
+  testTimeout: 60_000,
+});
 
 function getSubmissionFixturePath(...folders: string[]) {
   return join(process.cwd(), 'fixtures', 'submissions', ...folders);
@@ -13,8 +20,12 @@ async function readReportJson(submissionPath: string) {
   return JSON.parse(text);
 }
 
+describe.sequential('grader', () => {
+  beforeEach(() => {
+    logger.setPrefix = vi.fn();
+    logger.info = vi.fn();
+  });
 
-describe('grader', () => {
   describe('contain-package-json checklist', () => {
     it('should reject submission when student submission not contain `package.json`', async () => {
       // Arrange
@@ -93,6 +104,113 @@ describe('grader', () => {
       // Assert
       const report = await readReportJson(submissionPath);
       expect(report.checklist_keys).toContain('main-js-contain-username');
+    });
+  });
+
+  describe('use-correct-port checklist', () => {
+    it('should reject submission when main.js executed but no 9000 port opened', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('wrong-port');
+
+      // Action
+      await grade(submissionPath);
+
+      // Action
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(false);
+      expect(report.message).toContain('<p>Pastikan PORT 9000 digunakan oleh aplikasi webmu ketika kami menjalankan berkas <code>main.js</code>.</p>');
+    });
+
+    it('should contain `use-correct-port` in `checklist_keys` when main.js executed and 9000 port opened', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('correct-port');
+
+      // Action
+      await grade(submissionPath);
+
+      // Action
+      const report = await readReportJson(submissionPath);
+      expect(report.checklist_keys).toContain('use-correct-port');
+    });
+  });
+
+  describe('use-correct-port checklist', () => {
+    it('should reject submission when app is not response in html', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('not-response-html');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(false);
+      expect(report.message).toContain('<p>Aplikasi web yang kamu buat harus me-response dengan format HTML.</p>');
+    });
+
+    it('should contain `response-in-html` in `checklist_keys` when app response with html', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('response-html');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.checklist_keys).toContain('response-in-html');
+    });
+  });
+
+  describe('response-h1-with-correct-username checklist', () => {
+    it('should reject submission when app is not h1 with correct username', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('response-not-correct-username');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(false);
+      expect(report.message).toContain('<p>Konten yang berada di dalam elemen h1 harus username akun Dicodingmu.</p>');
+    });
+
+    it('should contain `response-h1-with-correct-username` in `checklist_keys` when app response h1 with correct username', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('response-correct-username');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.checklist_keys).toContain('response-h1-with-correct-username');
+    });
+  });
+
+  describe('Rejection and Approval scenario', () => {
+    it('should reject submission when checklist not complete', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('reject-submission');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(false);
+    });
+
+    it('should approve submission when checklist complete', async () => {
+      // Arrange
+      const submissionPath = getSubmissionFixturePath('approve-submission');
+
+      // Action
+      await grade(submissionPath);
+
+      // Assert
+      const report = await readReportJson(submissionPath);
+      expect(report.is_passed).toEqual(true);
     });
   });
 });
