@@ -28,13 +28,13 @@ Jalankan auto-grader dengan menggunakan command npm run start -- [argument]
 Options:
       --help     Show help                                             [boolean]
       --version  Show version number                                   [boolean]
-  -p, --path     Define student submission location                   [required]
+  -p, --path     Define student submission location                    [required]
 ```
 
 ### Docker version
 ```shell
-docker build -t autograder:sample 
-docker run --rm --mount type=bind,source=$(SUBMISSION_FOLDER_PATH),target=/home/direviu/app/student-submission autograder:sample npm start -- -p=/home/direviu/app/student-submission
+docker pull ghcr.io/dicodingacademy/axxx-autograder-sample-js:master
+docker run --rm --mount type=bind,source=$(SUBMISSION_FOLDER_PATH),target=/home/direviu/app/student-submission  ghcr.io/dicodingacademy/axxx-autograder-sample-js npm start -- -p=/home/direviu/app/student-submission
 ```
 
 ## Flowchart (alur dalam menilai submission)
